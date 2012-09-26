@@ -4,7 +4,13 @@ Tools for quickly creating plain text bibliographic references from BibTeX entri
 
 The initial purpose of this package was to enable easy conversion from BibTeX/LaTeX citations into a plain text format that can be easily pasted into other programs that are unfriendly to LaTeX (or for quickly sharing references with colleagues or friends through email, etc.). 
 
-Currently, this package allows you to easily convert either BibTeX formatted text, or latex \cite{} commands in a in a buffer into plain text APA formatted references. Of course, formatting such as underlining and italics will be missing from the reference string. Currently, you will need to take
+Currently, this package allows you to easily convert either BibTeX formatted text, or latex \cite{} commands in a buffer into plain text APA formatted references. Of course, formatting such as underlining and italics will be missing from the reference string. As of now, if you plan to paste the formatted string into another program (such as M$ Word), you will need to manually add such markup. Future versions will hopefully remove this necessity. 
+
+bibtex-to-plain-text is agnostic to the referencing style used as output. The default is APA styling. Styling behavior is controlled by the variable <code>bibtex-to-plain-text-style</code>, which is set by default to an association list called <code>bibtex-to-plain-text-apa-formats</code> that contains the formatting styles for each BibTeX entry type (article, book, incollection, etc.). Additional styles (MLA, Chicago style, etc.) will be added in time. Users can also provide their own custom style rules by creating custom association lists according to those defined in bibtex-to-plain-text.el. By setting <code>bibtex-to-plain-text-style</code> to the custom list, the output behavior of bibtex-to-plain-text can be modified:
+
+<pre>
+(setq bibtex-to-plain-text-style bibtex-to-plain-text-my-custom-format-list)
+</pre>
 
 # Setup
 
@@ -47,15 +53,15 @@ Petrov, A.A. and Van Horn, N.M. and Ratcliff, R. (2011). Dissociable perceptual-
 
 ## bibtex-convert-buffer-to-plain-text
 
-This is a wrapper for bibtex-create-plain-text-reference described above. The current buffer is searched and all BibTeX entries are converted to plain text. The results are written to a buffer named *references*. The contents of the current buffer can contain a mixture of BibTeX markup and other text. Thus, <code>bibtex-convert-buffer-to-plain-text</code> will scrape your buffer of any BibTeX entries and convert them into a references list.
+This is a wrapper for <code>bibtex-create-plain-text-reference</code> described above. The current buffer is searched and all BibTeX entries are converted to plain text. The results are written to a buffer named /*references/*. The contents of the current buffer can contain a mixture of BibTeX markup and other text. Thus, <code>bibtex-convert-buffer-to-plain-text</code> will scrape your buffer of any BibTeX entries and convert them into a references list.
 
 ## latex-convert-buffer-to-plain-text
 
-This function should be run inside of a LaTeX document containing one or more <code>\cite{}</code> commands. Provided your bibliography file defined in <code>\bibliography{}</code>, the function will create a plain text reference list formatted according to the standards associated with the reference type of each citation (e.g., article, book, etc.).
+This function should be run inside of a LaTeX document containing one or more <code>\cite{}</code> commands. Provided you have specified a bibliography file in <code>\bibliography{}</code> statement, the function will create a plain text reference list formatted according to the standards associated with the reference type of each citation (e.g., article, book, etc. will be treated uniquely).
 
 ## latex-create-plain-text-reference
 
-<b>Currently not functioning</b>
+<b>Currently not working properly!!!</b>
 
 This function creates a plain text formatted reference of the <code>\cite{}</code> entry under point. The reference is pushed to the kill ring.
 
