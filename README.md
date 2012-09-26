@@ -41,7 +41,7 @@ This converts a BibTeX entry under point (selecting a region is NOT required) to
   year={2011},
   publisher={Springer}
 }
-</pre></code>
+</code></pre>
 
 Running <code>bibtex-create-plain-text-reference</code> with point anywhere inside the above BibTeX entry will produce the following APA reference:
 
@@ -50,13 +50,11 @@ Petrov, A.A. and Van Horn, N.M. and Ratcliff, R. (2011). Dissociable perceptual-
 </pre>
 
 
-Future Goals
-============
+# Future Goals
 
 * Add exporting options with markup text (for pasting properly formatted references into .rtf, html, etc.). 
 * Convert from plain text references back into BibTeX. This is a tough problem probably not worth the timeinvolved.
 
-Warning
-=======
+# Warning 
 
 This is in early development. The initial functions seem to work, but there are known bugs. For instance, the final BibTeX entry in a buffer is converted to a plain text reference twice. 
