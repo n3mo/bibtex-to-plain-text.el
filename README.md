@@ -9,7 +9,8 @@ Currently, this package allows you to easily convert either BibTeX formatted tex
 bibtex-to-plain-text is agnostic to the referencing style used as output. The default is APA styling. Styling behavior is controlled by the variable <code>bibtex-to-plain-text-style</code>, which is set by default to an association list called <code>bibtex-to-plain-text-apa-formats</code> that contains the formatting styles for each BibTeX entry type (article, book, incollection, etc.). Additional styles (MLA, Chicago style, etc.) will be added in time. Users can also provide their own custom style rules by creating custom association lists according to those defined in bibtex-to-plain-text.el. By setting <code>bibtex-to-plain-text-style</code> to the custom list, the output behavior of bibtex-to-plain-text can be modified:
 
 <pre>
-(setq bibtex-to-plain-text-style bibtex-to-plain-text-my-custom-format-list)
+(setq bibtex-to-plain-text-style 
+	bibtex-to-plain-text-my-custom-format-list)
 </pre>
 
 # Setup
