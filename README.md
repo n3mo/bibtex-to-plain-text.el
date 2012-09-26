@@ -14,9 +14,9 @@ This package requires that <code>bibtex</code> and <code>reftex-cite</code> are 
 
 Provided bibtex-to-plain-text.el is on your load path, a simple require will get you up and running.
 
-<pre><code>
+<pre>
 (require 'bibtex-to-plain-text)
-</code></pre>
+</pre>
 
 # Usage
 
