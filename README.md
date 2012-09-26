@@ -1,5 +1,4 @@
-bibtex-to-plain-text.el
-=======================
+# bibtex-to-plain-text.el
 
 Tools for quickly creating plain text bibliographic references from BibTeX entries
 
@@ -7,8 +6,7 @@ The initial purpose of this package was to enable easy conversion from BibTeX/La
 
 Currently, this package allows you to easily convert either BibTeX formatted text, or latex \cite{} commands in a in a buffer into plain text APA formatted references. Of course, formatting such as underlining and italics will be missing from the reference string. Currently, you will need to take
 
-Setup
-=====
+# Setup
 
 Expect these functions to be renamed soon.
 
@@ -20,13 +18,9 @@ Provided bibtex-to-plain-text.el is on your load path, a simple require will get
 (require 'bibtex-to-plain-text)
 </code></pre>
 
-Usage
-=====
+# Usage
 
-Several functions are defined:
-
-bibtex-create-plain-text-reference
-----------------------------------
+## bibtex-create-plain-text-reference
 
 This converts a BibTeX entry under point (selecting a region is NOT required) to a plain text reference. The result is pushed to the kill ring. Example:
 
@@ -48,7 +42,6 @@ Running <code>bibtex-create-plain-text-reference</code> with point anywhere insi
 <pre>
 Petrov, A.A. and Van Horn, N.M. and Ratcliff, R. (2011). Dissociable perceptual-learning mechanisms revealed by diffusion-model analysis. Psychonomic Bulletin & Review, 18(3), 490-497.
 </pre>
-
 
 # Future Goals
 
