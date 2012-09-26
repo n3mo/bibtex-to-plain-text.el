@@ -46,7 +46,7 @@ This converts a BibTeX entry under point (selecting a region is NOT required) to
 }
 </pre>
 
-Running <code>bibtex-create-plain-text-reference</code> with point anywhere inside the above BibTeX entry will produce the following APA reference:
+Running <code>M-x bibtex-create-plain-text-reference</code> with point anywhere inside the above BibTeX entry will produce the following APA reference:
 
 <pre>
 Petrov, A.A. and Van Horn, N.M. and Ratcliff, R. (2011). Dissociable perceptual-learning mechanisms revealed by diffusion-model analysis. Psychonomic Bulletin & Review, 18(3), 490-497.
@@ -54,11 +54,11 @@ Petrov, A.A. and Van Horn, N.M. and Ratcliff, R. (2011). Dissociable perceptual-
 
 ## bibtex-convert-buffer-to-plain-text
 
-This is a wrapper for <code>bibtex-create-plain-text-reference</code> described above. The current buffer is searched and all BibTeX entries are converted to plain text. The results are written to a buffer named /*references/*. The contents of the current buffer can contain a mixture of BibTeX markup and other text. Thus, <code>bibtex-convert-buffer-to-plain-text</code> will scrape your buffer of any BibTeX entries and convert them into a references list.
+This is a wrapper for <code>bibtex-create-plain-text-reference</code> described above. The current buffer is searched and all BibTeX entries are converted to plain text. The results are written to a buffer named \*references\*. The contents of the current buffer can contain a mixture of BibTeX markup and other text. Thus, <code>bibtex-convert-buffer-to-plain-text</code> will scrape your buffer of any BibTeX entries and convert them into a references list.
 
 ## latex-convert-buffer-to-plain-text
 
-This function should be run inside of a LaTeX document containing one or more <code>\cite{}</code> commands. Provided you have specified a bibliography file in <code>\bibliography{}</code> statement, the function will create a plain text reference list formatted according to the standards associated with the reference type of each citation (e.g., article, book, etc. will be treated uniquely).
+This function should be run inside of a LaTeX document containing one or more <code>\cite{}</code> commands. Provided you have specified a bibliography file in <code>\bibliography{}</code> statement, the function will create a plain text reference list formatted according to the standards associated with the reference type of each citation (e.g., article, book, etc. will be treated uniquely). This should work across multi-file LaTeX documents as well (i.e., those using <code>\input{}</code> statements).
 
 ## latex-create-plain-text-reference
 
