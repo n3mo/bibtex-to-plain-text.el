@@ -18,17 +18,20 @@ Provided bibtex-to-plain-text.el is on your load path, a simple require will get
 
 <pre><code>
 (require 'bibtex-to-plain-text)
-</pre></code>
+</code></pre>
 
 Usage
 =====
 
 Several functions are defined:
 
-* bibtex-create-plain-text-reference -- This converts a BibTeX entry under point (selecting a region is NOT required) to a plain text reference. The result is pushed to the kill ring. Example:
+bibtex-create-plain-text-reference
+----------------------------------
+
+This converts a BibTeX entry under point (selecting a region is NOT required) to a plain text reference. The result is pushed to the kill ring. Example:
 
 <pre><code>
-@article{petrov2011dissociable,
+@article{petrov2011,
   title={Dissociable perceptual-learning mechanisms revealed by diffusion-model analysis},
   author={Petrov, A.A. and Van Horn, N.M. and Ratcliff, R.},
   journal={Psychonomic bulletin \& review},
