@@ -191,15 +191,17 @@
       '(
 	("article" . (("author" "year" "title" "journal" "volume"
 		       "number" "pages") 
-		      "%s (%s). %s. %s, %s|(%s)|, %s."))
+		      "%s (%s). %s. %s, %s[(%s)], %s."))
 	("book" . (("author" "year" "title" "editor" "address"
 		    "publisher") 
-		   "%s (%s). %s.| %s| |%s: |%s."))
-	;; inproceedings can have either "journal" or "booktitle"
+		   "%s (%s). %s.[ %s] [%s: ]%s."))
 	("inproceedings" . (("author" "year" "title" "editor"
-			     "booktitle" "journal" "pages" "address"
+			     "booktitle" "pages" "address"
 			     "publisher")
-	    "%s (%s). %s.| In |%s| (Ed.),| %s%s| (pp. |%s|)|.| %s:| %s"))))
+	    "%s (%s). %s.[ In %s (Ed.),] %s[ (pp. %s)]. %s: %s."))
+	("techreport" . (("author" "year" "title" "number" "address"
+			  "institution")
+			 "%s (%s). %s[ (%s)]. %s: %s."))))
 
 ;; This is what the function bibtex-create-plain-text-reference
 ;; actually uses. The user can point this to any properly structured
@@ -266,7 +268,7 @@ bibtex-to-plain-text-style"
       (setq currData (bibtex-text-in-field x))
       ;; We may need to perform some pre-processing on the text
       (cond
-       ((and (equal "pages" x) (equal "" currData))
+       ((and (equal "pages" x) (not (equal "" currData)))
 	(progn
 	  (setq currData (when (string-match "--" currData)
 			   (replace-match "-" nil nil currData)))))
@@ -280,18 +282,16 @@ bibtex-to-plain-text-style"
 	      (setq currData (format "(%s, Eds.)." currData))))))
       ;; Clear out newline characters if present. If the entry is
       ;; missing, then this value is currently nil. In this case,
-      ;; convert the nil to the empty string "". This ensures that if
-      ;; a particular field is missing (e.g., the "editor" of a book),
-      ;; then nothing will print in its place, rather than the word
-      ;; "nil". This behavior is preferred, as typically when such a
-      ;; field is missing, you just omit any mention of it in the
-      ;; reference (there could conceivably be exceptions to this,
-      ;; which I should check for)
+      ;; convert the nil to the string "###". This enables accurate
+      ;; removal of missing entry components downstream via regex
+      ;; matching. Also, if one of these missing componants make it
+      ;; through the regex replace, it will be visually identifiable
+      ;; and can be removed manually.
       (if (not (null currData))
 	  (setq currData (mapconcat 'identity 
 				    (split-string currData) " "))
 	;; Else
-	(setq currData ""))
+	(setq currData "###"))
       ;; Push the captured data onto our list
       (push currData entryFields)))
   ;; Format the resulting list. This involves three steps in this order: 
@@ -310,11 +310,15 @@ bibtex-to-plain-text-style"
 	 (reverse entryFields)))
   ;; Step 2
   (setq raw-citation (replace-regexp-in-string
-		      "|[[:punct:]]*[^[:alnum:]][[:punct:]]*|" ""
-		      raw-citation))
+  		      "\\[.*?###.*?\\]" ""
+  		      raw-citation))
   ;; Step 3
-  (replace-regexp-in-string "[|{}]" "" raw-citation))
-
+  ;; (replace-regexp-in-string "[|{\\}]" "" raw-citation))
+  (let ((finalString raw-citation))
+    (dolist (x '("\\[" "\\]" "{" "}" "\\\\")) 
+      (setq finalString 
+    	    (replace-regexp-in-string x "" finalString)))
+    finalString))
 
 ;; This is a wrapper function that applies the function
 ;; bibtex-create-plain-text-reference to the entire buffer. The
